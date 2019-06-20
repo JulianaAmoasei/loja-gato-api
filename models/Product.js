@@ -1,4 +1,6 @@
 const Sequelize = require('sequelize');
+const ImgProduct = require('../models/ImagesProduct')
+
 const sequelize = new Sequelize('postgres://loja_gato_usr:admin123@localhost:5432/loja_gato');//URI do banco vai aqui
 const Op = Sequelize.Op
 
@@ -25,5 +27,7 @@ sequelize.sync()
 
 // Product.findAll({where: {birthday: {[Op.lte]: new Date() }}}).then( users => console.log(users.map(u => u.dataValues) ) );
 // Product.destroy({where: {username: 'Ju'}}); //.then( users =>  );
+
+Product.hasMany(ImgProduct)
 
 module.exports = Product;
