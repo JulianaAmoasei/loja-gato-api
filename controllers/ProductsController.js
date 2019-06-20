@@ -1,4 +1,6 @@
 const Product = require('../models/Product')
+const ImgProduct = require('../models/ImagesProduct')
+const PricesProduct = require('../models/PricesProduct')
 
 class ProductsController {
   
@@ -6,7 +8,7 @@ class ProductsController {
   }
 
   getAll(){
-    return Product.findAll()
+    return Product.findAll({include: [ImgProduct, PricesProduct]})
   }
 
   get(productid){
