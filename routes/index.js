@@ -9,7 +9,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/products', function(req, res, next) {
-  res.send(prodController.getAll());
+  prodController
+  .getAll()
+  .then(product => res.json(product));
 });
 
 module.exports = router;
