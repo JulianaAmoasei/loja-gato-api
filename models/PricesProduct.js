@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const Product = require('../models/Product_2')
+const Product = require('../models/Product')
 const sequelize = new Sequelize('postgres://loja_gato_usr:admin123@localhost:5432/loja_gato');
 const Op = Sequelize.Op
 
@@ -20,11 +20,11 @@ PricesProduct.init({
 }, { sequelize, modelName: 'PricesProduct' })
 
 sequelize.sync()
-  // .then(() => PricesProduct.create({
-  //   value: 5.00,
-  //   installments: 5,
-  //   installmentValue: 4.00,
-  //   productId: 1,
-  // }));
+  .then(() => PricesProduct.create({
+    value: 5.00,
+    installments: 5,
+    installmentValue: 4.00,
+    productId: 1,
+  }));
 
 module.exports = PricesProduct;

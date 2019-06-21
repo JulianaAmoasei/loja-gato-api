@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-const ImgProduct = require('../models/ImagesProduct_2')
-// const PricesProduct = require('../models/PricesProduct_2')
+const ImgProduct = require('../models/ImagesProduct')
+const PricesProduct = require('../models/PricesProduct')
 
 const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://loja_gato_usr:admin123@localhost:5432/loja_gato');
 const Op = Sequelize.Op
@@ -26,7 +26,9 @@ Product.hasMany(ImgProduct, {
     foreignKey: 'productId'
 });
 
-// Product.hasMany(ImgProduct)
-// Product.hasMany(PricesProduct)
+Product.hasOne(PricesProduct, {
+    as: 'precos_produto',
+    foreignKey: 'productId'
+});
 
 module.exports = Product;
