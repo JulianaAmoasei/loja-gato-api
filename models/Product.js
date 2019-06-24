@@ -1,7 +1,7 @@
 const Model = require('sequelize').Model;
 
-const ImgProduct = require('../models/ImagesProduct')
-const PricesProduct = require('../models/PricesProduct')
+const ImgProduct = require('../models/ImagesProduct');
+const PricesProduct = require('../models/PricesProduct');
 class Product extends Model {
   static init(sequelize, DataTypes) {
     return super.init(
@@ -26,11 +26,5 @@ class Product extends Model {
 
   }
 }
-
-// sequelize.sync()
-  // .then(() => Product.create({
-  //   name: "cogumelo",
-  // }));
-
 
 module.exports = Product;

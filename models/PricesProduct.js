@@ -21,12 +21,4 @@ class PricesProduct extends Model {
   }
 }
 
-// sequelize.sync()
-  // .then(() => PricesProduct.create({
-  //   value: 5.00,
-  //   installments: 5,
-  //   installmentValue: 4.00,
-  //   productId: 1,
-  // }));
-
 module.exports = PricesProduct;
