@@ -1,35 +1,36 @@
-const Sequelize = require('sequelize');
+const Model = require('sequelize').Model;
+
 const ImgProduct = require('../models/ImagesProduct')
 const PricesProduct = require('../models/PricesProduct')
+class Product extends Model {
+  static init(sequelize, DataTypes) {
+    return super.init(
+      {
+        name: {
+          type: DataTypes.STRING,
+        }
+      },
+      { sequelize, modelName: 'Product' }
+    );
+  }
+  static associate() {
+    this.myAssociation = this.hasMany(ImgProduct, {
+      as: 'imagens_produto',
+      foreignKey: 'productId'
+    });
 
-const sequelize = new Sequelize('postgres://bnwztuyofhjpit:cf62643bdabb3b91b8c2debba198b90cc016534b0255d90e1bf7c37669e22e6f@ec2-174-129-242-183.compute-1.amazonaws.com:5432/d9hodvne5eks0l',
-  {dialect:"postgres", protocol: "postgres", dialectOptions: { ssl: true}});
-const Op = Sequelize.Op
+    this.myAssociation = this.hasOne(PricesProduct, {
+      as: 'precos_produto',
+      foreignKey: 'productId'
+    })
 
-class Product extends Sequelize.Model {}
+  }
+}
 
-Product.init({
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  //images
-  //prices
-}, { sequelize, modelName: 'Product' })
-
-sequelize.sync()
+// sequelize.sync()
   // .then(() => Product.create({
   //   name: "cogumelo",
   // }));
 
-Product.hasMany(ImgProduct, {
-    as: 'imagens_produto',
-    foreignKey: 'productId'
-});
-
-Product.hasOne(PricesProduct, {
-    as: 'precos_produto',
-    foreignKey: 'productId'
-});
 
 module.exports = Product;

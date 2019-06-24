@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User')
 
 function getToken(user){
-  let token = jwt.sign({user}, 'banana')
+  let token = jwt.sign({user}, process.env.JWT_SECRET)
   return {token}
 }
 
@@ -12,7 +12,7 @@ async function verifyToken(header){
     const bearer = bearerHeader.split(" ")
     const bearerToken = bearer[1]
     try {
-      protoUser = jwt.verify(bearerToken, 'banana')
+      protoUser = jwt.verify(bearerToken, process.env.JWT_SECRET)
     }
     catch(err){
       return false
@@ -29,4 +29,4 @@ async function verifyToken(header){
 module.exports = {
     getToken: getToken,
     verifyToken: verifyToken
-} 
+}
