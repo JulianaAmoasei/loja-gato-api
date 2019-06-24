@@ -8,10 +8,9 @@ function getToken(user){
 
 async function verifyToken(header){
   const bearerHeader = header['authorization']
-  if (typeof bearerHeader != undefined){
+  if (typeof bearerHeader != "undefined"){
     const bearer = bearerHeader.split(" ")
     const bearerToken = bearer[1]
-
     try {
       protoUser = jwt.verify(bearerToken, 'banana')
     }

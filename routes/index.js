@@ -33,8 +33,6 @@ router.post('/product', function(req, res, next) {
       res.send("TOKEN NOT VALID")
     }
   })
-//   console.log(req)
-// res.send(req.body)
 })
 
 router.post('/auth', function(req, res, next) {
