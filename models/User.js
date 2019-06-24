@@ -18,9 +18,9 @@ User.init({
 }, { sequelize, modelName: 'User' })
 
 sequelize.sync()
-  .then(() => User.create({
-    email: 'ju@ju.com',
-    password: '123'
-  }));
+  // .then(() => User.create({
+  //   email: 'ju@ju.com',
+  //   password: '123'
+  // }));
 
 module.exports = User;

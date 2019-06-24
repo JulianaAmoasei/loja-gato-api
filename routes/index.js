@@ -22,6 +22,21 @@ router.get('/products', function(req, res, next) {
   })
 })
 
+router.post('/product', function(req, res, next) {
+  auth.verifyToken(req.headers)
+  .then(tokenIsValid => {
+    if (tokenIsValid){
+      prodController
+      .insert(req.body)
+      .then(product => res.json(product))
+    } else {
+      res.send("TOKEN NOT VALID")
+    }
+  })
+//   console.log(req)
+// res.send(req.body)
+})
+
 router.post('/auth', function(req, res, next) {
   res.send(auth.getToken({email: 'ju@ju.com'}))
 });
