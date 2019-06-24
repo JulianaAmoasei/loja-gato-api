@@ -6,27 +6,25 @@ function getToken(user){
   return {token}
 }
 
-async function verifyToken(header){
-  const bearerHeader = header['authorization']
-  if (typeof bearerHeader != "undefined"){
-    const bearer = bearerHeader.split(" ")
-    const bearerToken = bearer[1]
+async function verifyToken(req, res, next){
+  const { authorization } = req.headers;
+  if (authorization){
+    const token = authorization.split(" ")[1]
     try {
-      protoUser = jwt.verify(bearerToken, process.env.JWT_SECRET)
-    }
-    catch(err){
-      return false
+      protoUser = jwt.verify(token, process.env.JWT_SECRET)
+    } catch(err) {
+      return res.send("TOKEN NOT VALID")
     }
 
     let usr = await User.findOne({where : {email : protoUser.user.email}})
     if (usr) {
-      return true
+      return next();
     }
   }
-  return false
+  return res.send("TOKEN NOT VALID")
 }
 
 module.exports = {
-    getToken: getToken,
-    verifyToken: verifyToken
+  getToken,
+  verifyToken
 }
