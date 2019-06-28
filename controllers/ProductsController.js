@@ -1,25 +1,22 @@
-const Product = require('../models/Product')
-const ImgProduct = require('../models/ImagesProduct')
-const PricesProduct = require('../models/PricesProduct')
+const models = require('../models');
+const Product = models.Product;
+const ImgProduct = models.ImgProduct;
+const PricesProduct = models.PricesProduct;
 
 class ProductsController {
-  
-  constructor(){
-  }
 
-  getAll(){
+  static getAll() {
     return Product.findAll({include: ['imagens_produto', 'precos_produto']})
   }
 
-  get(productid){
+  static get(id){
     return Product
-    .findByPk(productid, {include: ['imagens_produto', 'precos_produto']})
+      .findByPk(id, {include: ['imagens_produto', 'precos_produto']})
   }
 
-  async insert(product){
-    let newProduct = await Product.create(
-      {name: product.name}
-      )
+  static async insert(product){
+    let newProduct = await Product.create({name: product.name});
+
     await product.imagens_produto.forEach(async(img, indice) => await ImgProduct
       .create({order: indice, productId: newProduct.id, path: img.path}))
     await PricesProduct
@@ -28,7 +25,7 @@ class ProductsController {
     .findByPk(newProduct.id, {include: ['imagens_produto', 'precos_produto']})
   }
 
-  async update(product){
+  static async update(product){
     let updatedProduct = await Product.update(
       {name: product.name}
       )
@@ -40,11 +37,7 @@ class ProductsController {
     .findByPk(updatedProduct.id, {include: ['imagens_produto', 'precos_produto']})
   }
 
-  update(product){
-    return {status: "ok", produto: "produto"}
-  }
-
-  delete(productid){
+  static delete(productid){
     return {status: "ok", produto: "produto"}
   }
 }
